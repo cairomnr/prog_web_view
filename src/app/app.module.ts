@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { AdminRoutingModule } from './admin/admin-routing.module';
 import { HomeModule } from '../app/home/home.module';
 import { AdminModule } from '../app/admin/admin.module';
 
@@ -15,7 +14,7 @@ import { AdminModule } from '../app/admin/admin.module';
     HomeModule,
     AdminModule,
     BrowserModule,
-    AppRoutingModule
+    AdminRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

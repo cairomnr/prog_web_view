@@ -4,10 +4,10 @@ import { Http, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { ServiceAbstract } from '../../core/service-abstract.service';
-import { Categoria } from './categoria';
+import { Produto } from './produto';
 
 @Injectable()
-export class CategoriaService extends ServiceAbstract {
+export class ProdutoService extends ServiceAbstract {
 
   /**
    * Construtor da classe.
@@ -15,7 +15,7 @@ export class CategoriaService extends ServiceAbstract {
    * @param http
    */
   constructor(private http: Http) {
-    super('categoria');
+    super('produto');
   }
 
   /**
@@ -23,7 +23,7 @@ export class CategoriaService extends ServiceAbstract {
    *
    * @return array
    */
-  public getCategorias(): Observable<any> {
+  public getProdutos(): Observable<any> {
     return this.http.get(this.getUrl()).map(this.extractData).catch(this.handleError);
   }
 
@@ -32,7 +32,7 @@ export class CategoriaService extends ServiceAbstract {
    *
    * @return object
    */
-  public getCategoria(id: any): Observable<any> {
+  public getProduto(id: any): Observable<any> {
     return this.http.get(this.getUrl() + '/' + id).map(this.extractData).catch(this.handleError);
   }
 

@@ -1,16 +1,27 @@
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 
-import { CategoriaRoutingModule } from './categoria-routing.module';
+import { CategoriaService } from './categoria.service';
+
 import { ListaCategoriasComponent } from './lista-categorias/lista-categorias.component';
 import { FormularioCategoriaComponent } from './formulario-categoria/formulario-categoria.component';
 import { VisualizarCategoriaComponent } from './visualizar-categoria/visualizar-categoria.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    CategoriaRoutingModule
+    HttpModule,
+    RouterModule,
+    CommonModule
   ],
-  declarations: [ListaCategoriasComponent, FormularioCategoriaComponent, VisualizarCategoriaComponent]
+  declarations: [
+    ListaCategoriasComponent,
+    FormularioCategoriaComponent,
+    VisualizarCategoriaComponent
+  ],
+  providers: [
+    CategoriaService
+  ]
 })
-export class CategoriaModule { }
+export class CategoriaModule {}

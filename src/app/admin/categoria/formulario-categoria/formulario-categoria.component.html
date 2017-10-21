@@ -1,3 +1,18 @@
-<p>
-  formulario-categoria works!
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Identificador:</label>
+      <input type="text" class="form-control" aria-describedby="Identificador categoria" value="{{ categoria.id }}">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Nome:</label>
+      <input type="text" class="form-control" aria-describedby="Nome da categoria" value="{{ categoria.nome }}">
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-primary" routerLink="/admin/categoria">
+  Voltar
+</button>
