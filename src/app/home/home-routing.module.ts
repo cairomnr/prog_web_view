@@ -1,7 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+import { HomeComponent } from './home.component';
+import { DestaqueRotas } from './destaque/destaque-routing.module';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      ...DestaqueRotas
+    ]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

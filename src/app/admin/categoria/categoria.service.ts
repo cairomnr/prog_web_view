@@ -8,7 +8,6 @@ import { Categoria } from './categoria';
 
 @Injectable()
 export class CategoriaService extends ServiceAbstract {
-
   /**
    * Construtor da classe.
    *
@@ -24,7 +23,10 @@ export class CategoriaService extends ServiceAbstract {
    * @return array
    */
   public getCategorias(): Observable<any> {
-    return this.http.get(this.getUrl()).map(this.extractData).catch(this.handleError);
+    return this.http
+      .get(this.getUrl())
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   /**
@@ -33,7 +35,30 @@ export class CategoriaService extends ServiceAbstract {
    * @return object
    */
   public getCategoria(id: any): Observable<any> {
-    return this.http.get(this.getUrl() + '/' + id).map(this.extractData).catch(this.handleError);
+    return this.http
+      .get(this.getUrl() + '/' + id)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Responsável por salvar uma nova categoria no sistema.
+   *
+   * @param categoria
+   * @return Observable<any>
+   */
+  public salvarCategoria(categoria: Categoria, id: number): Observable<any> {
+    if (id === undefined) {
+      return this.http
+        .post(this.getUrl(), categoria)
+        .map(this.extractData)
+        .catch(this.handleError);
+    } else {
+      return this.http
+        .put(this.getUrl() + '/' + id, categoria)
+        .map(this.extractData)
+        .catch(this.handleError);
+    }
   }
 
   /**
@@ -43,6 +68,9 @@ export class CategoriaService extends ServiceAbstract {
    * @return object
    */
   public excluir(id: number): Observable<any> {
-    return this.http.delete(this.getUrl() + '/' + id).map(this.extractData).catch(this.handleError);
+    return this.http
+      .delete(this.getUrl() + '/' + id)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 }

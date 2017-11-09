@@ -1,3 +1,72 @@
-<p>
-  formulario-produto works!
-</p>
+<form #produtoForm="ngForm" (ngSubmit)="salvarProduto(produtoForm);">
+
+  <div class="col-md-12 mt-3">
+    <div class="row">
+      <div class="col-md-6" *ngIf="produto.id != 0">
+        <div class="form-group">
+          <label>Identificador:</label>
+          <input type="text" class="form-control" name="id" id="id" [(ngModel)]="produto.id" #id="ngModel" readonly>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nome:</label>
+          <input type="text" class="form-control" name="nome" id="nome" [(ngModel)]="produto.nome" #nome="ngModel" autocomplete="off"
+            required>
+
+          <div [hidden]="nome.valid || nome.pristine">
+            <span class="text-danger">Campo de preenchimento obrigatório.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Preço:</label>
+          <input type="text" class="form-control" name="preco" id="preco" [(ngModel)]="produto.preco" #preco="ngModel" autocomplete="off"
+            required>
+
+          <div [hidden]="preco.valid || preco.pristine">
+            <span class="text-danger">Campo de preenchimento obrigatório.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Categoria:</label>
+          <select class="form-control" name="categoria" id="categoria" [(ngModel)]="produto.categoria" #categoria="ngModel">
+            <option *ngFor="let categoria of categorias" [ngValue]="categoria" selected="categoria.id === produto.categoria.id">
+              {{ categoria.nome }}
+            </option>
+          </select>
+
+          <div [hidden]="categoria.valid || categoria.pristine">
+            <span class="text-danger">Campo de preenchimento obrigatório.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Descrição:</label>
+          <textarea type="text" class="form-control" name="descricao" id="descricao" [(ngModel)]="produto.descricao" #descricao="ngModel" autocomplete="off"
+            required></textarea>
+
+          <div [hidden]="descricao.valid || descricao.pristine">
+            <span class="text-danger">Campo de preenchimento obrigatório.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-danger" routerLink="/admin/categoria">
+      Voltar
+    </button>
+
+    <button type="submit" class="btn btn-success pull-right" [disabled]="! produtoForm.valid">
+      Salvar
+    </button>
+  </div>
+
+</form>

@@ -37,6 +37,19 @@ export class ProdutoService extends ServiceAbstract {
   }
 
   /**
+   * Salva um novo produto no sistema.
+   *
+   * @param produto
+   */
+  public salvarProduto(produto: Produto, id: number): Observable<any> {
+    if (id === undefined) {
+      return this.http.post(this.getUrl(), produto).map(this.extractData).catch(this.handleError);
+    } else {
+      return this.http.put(this.getUrl() + '/' + id, produto).map(this.extractData).catch(this.handleError);
+    }
+  }
+
+  /**
    * Exclui a categoria com o id informado.
    *
    * @param id

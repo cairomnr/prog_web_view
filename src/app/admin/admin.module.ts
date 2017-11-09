@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AlertsModule } from 'angular-alert-module';
 
@@ -10,6 +11,7 @@ import { AdminComponent } from './admin.component';
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
     ProdutoModule,
     CategoriaModule,
