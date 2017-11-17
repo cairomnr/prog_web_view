@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
-import { AlertsService } from 'angular-alert-module';
+import { ToastrService } from 'ngx-toastr';
 import { Categoria } from '../../categoria/categoria';
 import { CategoriaService } from '../../categoria/categoria.service';
 
@@ -29,7 +29,7 @@ export class FormularioProdutoComponent implements OnInit {
   constructor(
     private produtoService: ProdutoService,
     private categoriaService: CategoriaService,
-    private alert: AlertsService,
+    private toast: ToastrService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -45,7 +45,9 @@ export class FormularioProdutoComponent implements OnInit {
         response => {
           this.categorias = response.content;
         },
-        error => this.alert.setMessage(error.message, 'error')
+        error => {
+          this.toast.error(error);
+        }
       );
 
       const id = this.route.snapshot.paramMap.get('id');
@@ -56,12 +58,13 @@ export class FormularioProdutoComponent implements OnInit {
    * Carrega o produto para alteração se existir.
    */
   public carregarProduto(id): void {
-
     this.produtoService
     .getProduto(id)
     .subscribe(
       response => this.produto = response.content,
-      error => this.alert.setMessage(error.message, 'error')
+      error => {
+        this.toast.error(error);
+      }
     );
   }
 
@@ -73,11 +76,11 @@ export class FormularioProdutoComponent implements OnInit {
       const produto = produtoForm.value;
       this.produtoService.salvarProduto(produto, produto.id).subscribe(
         response => {
-          this.alert.setMessage(response.messages.SUCCESS[0], 'success');
+          this.toast.success(response.messages.SUCCESS[0]);
           this.redirecionaListagemProdutos();
         },
         error => {
-          this.alert.setMessage(error.message, 'error');
+          this.toast.error(error);
         }
       );
     }

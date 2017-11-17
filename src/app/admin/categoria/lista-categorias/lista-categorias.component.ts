@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertsService } from 'angular-alert-module';
+import { ToastrService } from 'ngx-toastr';
 
 import { Categoria } from '../categoria';
 import { CategoriaService } from '../categoria.service';
@@ -18,10 +18,10 @@ export class ListaCategoriasComponent {
    *
    * @param categoriaService
    */
-  constructor(private categoriaService: CategoriaService, private alert: AlertsService) {
+  constructor(private categoriaService: CategoriaService, private toast: ToastrService) {
     this.categoriaService.getCategorias().subscribe(response => {
       this.categorias = response.content;
-    }, error => this.alert.setMessage(error.mensagem, 'error'));
+    }, error => this.toast.error(error));
   }
 
   /**
@@ -29,13 +29,14 @@ export class ListaCategoriasComponent {
    *
    * @param id
    */
-  deletarCategoria(id: number): void {
+  deletarCategoria(id: number, index: number): void {
     if (id != null) {
       this.categoriaService.excluir(id).subscribe(response => {
-        this.alert.setMessage(response.mensagem, 'success');
-      }, error => { this.alert.setMessage(error.mensagem, 'error'); });
+        this.toast.success(response.messages.SUCCESS[0]);
+        this.categorias.splice(index, 1);
+      }, error => { this.toast.error(error); });
     } else {
-      this.alert.setMessage('Falha ao remover categoria.', 'error');
+      this.toast.error('Falha ao remover categoria.');
     }
   }
 }

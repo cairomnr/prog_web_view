@@ -34,8 +34,8 @@
   <div class="row row-offcanvas row-offcanvas-left">
     <div class="col-6 col-md-2 sidebar-offcanvas" id="sidebar">
       <div class="list-group">
-        <a href="#" class="list-group-item active">Destaques</a>
-        <a href="#" class="list-group-item" *ngFor="let categoria of categorias">{{ categoria.nome }}</a>
+        <a routerLink="/destaques" class="list-group-item" routerLinkActive="active">Destaques</a>
+        <a [routerLink]="['/categoria/', categoria.id]" routerLinkActive="active" class="list-group-item" *ngFor="let categoria of categorias">{{ categoria.nome }}</a>
       </div>
     </div>
     <div class="col-12 col-md-8 mt-3">

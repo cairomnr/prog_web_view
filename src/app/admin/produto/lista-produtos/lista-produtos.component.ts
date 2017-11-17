@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertsService } from 'angular-alert-module';
+import { ToastrService } from 'ngx-toastr';
 
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
@@ -15,7 +15,7 @@ export class ListaProdutosComponent implements OnInit {
   /**
    * Construtor da classe.
    */
-  constructor(private produtoService: ProdutoService, private alert: AlertsService) {}
+  constructor(private produtoService: ProdutoService, private toast: ToastrService) {}
 
   /**
    * Quando o componente inicializar.
@@ -23,7 +23,7 @@ export class ListaProdutosComponent implements OnInit {
   ngOnInit(): void {
     this.produtoService.getProdutos().subscribe(response => {
       this.produtos = response.content;
-    }, error => this.alert.setMessage(error.mensagem, 'error'));
+    }, error => this.toast.error('Produto', error));
   }
 
   /**
@@ -32,14 +32,13 @@ export class ListaProdutosComponent implements OnInit {
   deletarProduto(id: number, index: number): void {
     if (id != null) {
       this.produtoService.excluir(id).subscribe(response => {
-        console.log(response)
-        this.alert.setMessage(response.messages.SUCCESS[0], 'success');
+        this.toast.success(response.messages.SUCCESS[0]);
         this.produtos.splice(index, 1);
       }, error => {
-        this.alert.setMessage(error.mensagem, 'error');
+        this.toast.error(error);
       });
     } else {
-      this.alert.setMessage('Erro ao remover produto.', 'error');
+      this.toast.error('Falha ao remover produto.');
     }
   }
 }

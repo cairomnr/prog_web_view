@@ -24,7 +24,7 @@ export class DestaqueComponent implements OnInit {
    * Quando o componente estiver carregando.
    */
   ngOnInit() {
-    this.produtoService.getProdutos().subscribe(
+    this.produtoService.getDestaques().subscribe(
       response => {
         console.log(response);
         this.produtos = response.content;

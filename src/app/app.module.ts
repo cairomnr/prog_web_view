@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AdminRoutingModule } from './admin/admin-routing.module';
 import { HomeModule } from '../app/home/home.module';
 import { AdminModule } from '../app/admin/admin.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AdminModule } from '../app/admin/admin.module';
   imports: [
     HomeModule,
     AdminModule,
+    ToastrModule,
     BrowserModule,
     AdminRoutingModule
   ],

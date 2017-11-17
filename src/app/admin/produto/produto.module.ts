@@ -3,6 +3,9 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
+import { ToastrService, ToastrConfig } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ListaProdutosComponent } from './lista-produtos/lista-produtos.component';
 import { FormularioProdutoComponent } from './formulario-produto/formulario-produto.component';
@@ -15,7 +18,9 @@ import { ProdutoService } from './produto.service';
     HttpModule,
     FormsModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   declarations: [
     ListaProdutosComponent,
@@ -23,7 +28,8 @@ import { ProdutoService } from './produto.service';
     VisualizarProdutoComponent
   ],
   providers: [
-    ProdutoService
+    ProdutoService,
+    ToastrService
   ]
 })
 export class ProdutoModule { }

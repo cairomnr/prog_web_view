@@ -8,6 +8,11 @@ import { DestaqueComponent } from './destaque.component';
 export const DestaqueRotas: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: '/destaques'
+  },
+  {
+    path: 'destaques',
     component: DestaqueComponent
   }
 ];

@@ -3,13 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { DestaqueRotas } from './destaque/destaque-routing.module';
+import { CategoriaProdutosRotas } from './categoria-produtos/categoria-produtos-routing.module';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
-      ...DestaqueRotas
+      ...DestaqueRotas,
+      ...CategoriaProdutosRotas
     ]
   }
 ];

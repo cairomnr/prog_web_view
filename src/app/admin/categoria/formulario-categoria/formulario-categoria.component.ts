@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validator } from '@angular/forms';
 
 import { Categoria } from '../categoria';
-import { AlertsService } from 'angular-alert-module';
+import { ToastrService } from 'ngx-toastr';
 import { CategoriaService } from '../categoria.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class FormularioCategoriaComponent {
     private route: ActivatedRoute,
     private router: Router,
     private categoriaService: CategoriaService,
-    private alert: AlertsService
+    private toast: ToastrService
   ) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.categoria = new Categoria();
@@ -52,11 +52,11 @@ export class FormularioCategoriaComponent {
       const categoria = categoriaForm.value;
       this.categoriaService.salvarCategoria(categoria, categoria.id).subscribe(
       response => {
-        this.alert.setMessage(response.messages.SUCCESS[0], 'success');
+        this.toast.success(response.messages.SUCCESS[0]);
         this.voltarListagemCategoria();
       },
       error => {
-        this.alert.setMessage(error.message, 'error');
+        this.toast.error(error);
       });
     }
   }

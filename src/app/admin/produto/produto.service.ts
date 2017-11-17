@@ -37,6 +37,22 @@ export class ProdutoService extends ServiceAbstract {
   }
 
   /**
+   * Recupera os produtos de acordo com a categoria informada.
+   *
+   * @param id
+   */
+  public getProdutosPorCategoria(id: number): Observable<any> {
+    return this.http.get(this.getUrl() + '/categoria/' + id).map(this.extractData).catch(this.handleError);
+  }
+
+  /**
+   * Recupera a lista de destaques.
+   */
+  public getDestaques(): Observable<any> {
+    return this.http.get(this.getUrl() + '/destaque').map(this.extractData).catch(this.handleError);
+  }
+
+  /**
    * Salva um novo produto no sistema.
    *
    * @param produto
