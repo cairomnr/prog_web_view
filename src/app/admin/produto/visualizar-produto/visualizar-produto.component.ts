@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
+import { Categoria } from '../../categoria/categoria';
 
 @Component({
   selector: 'app-visualizar-produto',
@@ -22,6 +23,8 @@ export class VisualizarProdutoComponent implements OnInit {
     private router: Router,
     private produtoService: ProdutoService
   ) {
+    this.produto = new Produto();
+    this.produto.categoria = new Categoria();
     this.id = this.route.snapshot.paramMap.get('id');
   }
 

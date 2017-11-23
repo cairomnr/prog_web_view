@@ -35,7 +35,8 @@ export class FormularioProdutoComponent implements OnInit {
   ) {
     this.produto = new Produto();
     this.produto.id = 0;
-    this.produto.categoria = new Categoria();
+    this.produto.categoria = null;
+    this.produto.isDestaque = true;
   }
 
   ngOnInit() {
@@ -61,7 +62,9 @@ export class FormularioProdutoComponent implements OnInit {
     this.produtoService
     .getProduto(id)
     .subscribe(
-      response => this.produto = response.content,
+      response => {
+        this.produto = response.content;
+      },
       error => {
         this.toast.error(error);
       }
@@ -72,6 +75,7 @@ export class FormularioProdutoComponent implements OnInit {
    * Método responsável por adicionar um novo produto no sistema.
    */
   public salvarProduto(produtoForm: any): void {
+    console.log(produtoForm.value)
     if (produtoForm.valid) {
       const produto = produtoForm.value;
       this.produtoService.salvarProduto(produto, produto.id).subscribe(

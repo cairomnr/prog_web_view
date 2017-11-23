@@ -5,6 +5,7 @@ export class Produto {
   nome: string;
   preco: number;
   descricao: string;
+  isDestaque: boolean;
   categoria: Categoria;
 
   public Produto(
@@ -12,6 +13,7 @@ export class Produto {
     nome: string = '',
     preco: number = 0.0,
     descricao: string = '',
+    isDestaque: boolean = true,
     categoria: Categoria = null
   ) {
     this.id = id;
@@ -19,5 +21,6 @@ export class Produto {
     this.preco = preco;
     this.descricao = descricao;
     this.categoria = categoria;
+    this.isDestaque = isDestaque;
   }
 }

@@ -32,11 +32,28 @@
         </div>
       </div>
 
+      <!--<div class="col-md-6">
+        <div class="form-group">
+          <label>Destaque:</label>
+          <select class="form-control" name="isDestaque" [(ngModel)]="produto.isDestaque" #isDestaque="ngModel" required>
+            <option [value]="true">Sim</option>
+            <option [value]="false">Não</option>
+          </select>
+
+          <div [hidden]="isDestaque.valid || isDestaque.pristine">
+            <span class="text-danger">Campo de preenchimento obrigatório.</span>
+          </div>
+        </div>
+      </div>-->
+
       <div class="col-md-6">
         <div class="form-group">
           <label>Categoria:</label>
           <select class="form-control" name="categoria" id="categoria" [(ngModel)]="produto.categoria" #categoria="ngModel">
-            <option *ngFor="let categoria of categorias" [ngValue]="categoria" selected="categoria.id === produto.categoria.id">
+            <option [ngValue]="null">
+              Selecione
+            </option>
+            <option *ngFor="let categoria of categorias" [ngValue]="categoria">
               {{ categoria.nome }}
             </option>
           </select>
@@ -50,8 +67,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Descrição:</label>
-          <textarea type="text" class="form-control" name="descricao" id="descricao" [(ngModel)]="produto.descricao" #descricao="ngModel" autocomplete="off"
-            required></textarea>
+          <textarea type="text" class="form-control" name="descricao" id="descricao" [(ngModel)]="produto.descricao" #descricao="ngModel"
+            autocomplete="off" required></textarea>
 
           <div [hidden]="descricao.valid || descricao.pristine">
             <span class="text-danger">Campo de preenchimento obrigatório.</span>

@@ -5,6 +5,7 @@ import { AlertsModule } from 'angular-alert-module';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { ProdutoModule } from './produto/produto.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { CategoriaModule } from './categoria/categoria.module';
 
 import { AdminComponent } from './admin.component';
@@ -15,6 +16,7 @@ import { AdminComponent } from './admin.component';
     CommonModule,
     ProdutoModule,
     CategoriaModule,
+    DashboardModule,
     AdminRoutingModule,
     AlertsModule.forRoot()
   ],
