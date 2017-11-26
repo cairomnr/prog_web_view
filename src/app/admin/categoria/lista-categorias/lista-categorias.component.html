@@ -19,7 +19,7 @@
         <td>
           <i class="fa fa-pencil" aria-hidden="true" [routerLink]="['/admin/categoria/atualizar', categoria.id]"></i>
           <i class="fa fa-eye" aria-hidden="true" [routerLink]="['/admin/categoria/visualizar', categoria.id]"></i>
-          <i class="fa fa-trash" aria-hidden="true" (click)="deletarCategoria(categoria.id, i)"></i>
+          <i class="fa fa-trash" aria-hidden="true" (click)="abrirModal(categoria.id, i)"></i>
         </td>
       </tr>
     </tbody>

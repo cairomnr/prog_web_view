@@ -35,8 +35,9 @@ export class FormularioProdutoComponent implements OnInit {
   ) {
     this.produto = new Produto();
     this.produto.id = 0;
-    this.produto.categoria = null;
     this.produto.isDestaque = true;
+    this.produto.categoria = new Categoria();
+    this.produto.categoria.id = 0;
   }
 
   ngOnInit() {
@@ -45,14 +46,13 @@ export class FormularioProdutoComponent implements OnInit {
       .subscribe(
         response => {
           this.categorias = response.content;
+          const id = this.route.snapshot.paramMap.get('id');
+          if (id != null) { this.carregarProduto(id); }
         },
         error => {
           this.toast.error(error);
         }
       );
-
-      const id = this.route.snapshot.paramMap.get('id');
-      if (id != null) { this.carregarProduto(id); }
   }
 
   /**
@@ -75,9 +75,10 @@ export class FormularioProdutoComponent implements OnInit {
    * Método responsável por adicionar um novo produto no sistema.
    */
   public salvarProduto(produtoForm: any): void {
-    console.log(produtoForm.value)
     if (produtoForm.valid) {
       const produto = produtoForm.value;
+      produto.categoria = new Categoria(produto.categoria);
+
       this.produtoService.salvarProduto(produto, produto.id).subscribe(
         response => {
           this.toast.success(response.messages.SUCCESS[0]);
@@ -95,5 +96,16 @@ export class FormularioProdutoComponent implements OnInit {
    */
   public redirecionaListagemProdutos(): void {
     this.router.navigate(['/admin/produto']);
+  }
+
+  /**
+   * Verifica se a categoria é a categoria vinculada ao produto.
+   *
+   * @param categoria
+   * @return boolean
+   */
+  public isCategoriaProduto(categoria: Categoria): boolean {
+    console.log(categoria.id === this.produto.categoria.id)
+    return categoria.id === this.produto.categoria.id;
   }
 }

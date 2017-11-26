@@ -23,7 +23,7 @@
         <td>
           <i class="fa fa-pencil" aria-hidden="true" [routerLink]="['/admin/produto/atualizar', produto.id]"></i>
           <i class="fa fa-eye" aria-hidden="true" [routerLink]="['/admin/produto/visualizar', produto.id]"></i>
-          <i class="fa fa-trash" aria-hidden="true" (click)="deletarProduto(produto.id, i)"></i>
+          <i class="fa fa-trash" aria-hidden="true" (click)="abrirModal(produto.id, i)"></i>
         </td>
       </tr>
     </tbody>

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
+import { ModalValidacaoComponent } from '../../../core/modal/modal-validacao/modal-validacao.component';
 
 @Component({
   selector: 'app-lista-produtos',
@@ -15,7 +17,11 @@ export class ListaProdutosComponent implements OnInit {
   /**
    * Construtor da classe.
    */
-  constructor(private produtoService: ProdutoService, private toast: ToastrService) {}
+  constructor(
+    private produtoService: ProdutoService,
+    private toast: ToastrService,
+    private modalService: NgbModal
+  ) {}
 
   /**
    * Quando o componente inicializar.
@@ -27,15 +33,39 @@ export class ListaProdutosComponent implements OnInit {
   }
 
   /**
-   * Deleta um produto cadastrado no sistema.
+   * Abre o modal de confirmação de exclusão.
+   *
+   * @param id
+   * @param index
    */
-  deletarProduto(id: number, index: number): void {
+  public abrirModal(id: number, index: number): void {
+    const modal = this.modalService.open(ModalValidacaoComponent);
+    modal.componentInstance.id = id;
+    modal.componentInstance.index = index;
+    modal.componentInstance.titulo = 'Remover Produto';
+    modal.componentInstance.descricao = 'Deseja realmente remover esse produto ?';
+
+    modal.componentInstance.remover.subscribe(($e) => {
+      modal.close();
+      this.deletarProduto($e.id, $e.index);
+    });
+  }
+
+
+  /**
+   * Deleta um produto cadastrado no sistema.
+   *
+   * @param id
+   * @param index
+   */
+  public deletarProduto(id: number, index: number): void {
     if (id != null) {
       this.produtoService.excluir(id).subscribe(response => {
         this.toast.success(response.messages.SUCCESS[0]);
         this.produtos.splice(index, 1);
       }, error => {
-        this.toast.error(error);
+        console.log('Console: ' + error);
+        this.toast.error(error.mensagem);
       });
     } else {
       this.toast.error('Falha ao remover produto.');
