@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  Validators
+} from '@angular/forms';
 
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
@@ -13,61 +20,113 @@ import { CategoriaService } from '../../categoria/categoria.service';
   styleUrls: ['./formulario-produto.component.scss']
 })
 export class FormularioProdutoComponent implements OnInit {
-
   public produto: Produto;
+  public produtoForm: FormGroup;
   public categorias: Categoria[];
+  count = 0;
 
   /**
    * Construtor da classe.
    *
    * @param produtoService
    * @param categoriaService
-   * @param alert
+   * @param toast
    * @param router
    * @param route
+   * @param builder
    */
   constructor(
     private produtoService: ProdutoService,
     private categoriaService: CategoriaService,
     private toast: ToastrService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private builder: FormBuilder
   ) {
     this.produto = new Produto();
-    this.produto.id = 0;
     this.produto.isDestaque = true;
-    this.produto.categoria = new Categoria();
-    this.produto.categoria.id = 0;
-  }
-
-  ngOnInit() {
-    this.categoriaService
-      .getCategorias()
-      .subscribe(
-        response => {
-          this.categorias = response.content;
-          const id = this.route.snapshot.paramMap.get('id');
-          if (id != null) { this.carregarProduto(id); }
-        },
-        error => {
-          this.toast.error(error);
-        }
-      );
   }
 
   /**
-   * Carrega o produto para alteração se existir.
+   * Método carregado quando o componente estiver sendo renderizado.
    */
-  public carregarProduto(id): void {
-    this.produtoService
-    .getProduto(id)
-    .subscribe(
+  ngOnInit() {
+    const id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+
+    this.categoriaService.getCategorias().subscribe(
       response => {
-        this.produto = response.content;
+        this.categorias = response.content;
+        if (id) {
+          this.carregarProduto(id);
+        } else {
+        }
       },
       error => {
         this.toast.error(error);
       }
+    );
+
+    this.criarFormulario();
+  }
+
+  /**
+   * Cria o formulario para o cadastro de produto.
+   */
+  public criarFormulario(): void {
+    this.produtoForm = this.builder.group({
+      id: [this.produto.id],
+      nome: [this.produto.nome, Validators.required],
+      preco: [this.produto.preco, Validators.required],
+      descricao: [this.produto.descricao, Validators.required],
+      categoria: [this.produto.categoria, Validators.required],
+      itens: this.builder.array([
+        this.criarItem()
+      ])
+    });
+  }
+
+  /**
+   * Cria um novo item para o form group de categoria.
+   */
+  public criarItem(): FormGroup {
+    return this.builder.group({
+      categoria: ['', Validators.required]
+    });
+  }
+
+  /**
+   * Adiciona um grupo de categoria no array do formulario.
+   */
+  public adicionarItem(): void {
+    this.itens.push(this.criarItem());
+  }
+
+  /**
+   * Remove uma categoria.
+   *
+   * @param i
+   */
+  public removerItem(i: number): void {
+    this.itens.removeAt(i);
+  }
+
+  public removerCategoriaLista(index): void {
+    console.log(index);
+    // this.categorias.splice(index, 1);
+  }
+
+  /**
+   * Carrega o produto para alteração se existir.
+   *
+   * @param id
+   */
+  public carregarProduto(id: number): void {
+    this.produtoService.getProduto(id).subscribe(
+      response => {
+        this.produto = response.content;
+        this.criarFormulario();
+      },
+      error => this.toast.error(error.mensagem)
     );
   }
 
@@ -77,15 +136,13 @@ export class FormularioProdutoComponent implements OnInit {
   public salvarProduto(produtoForm: any): void {
     if (produtoForm.valid) {
       const produto = produtoForm.value;
-      produto.categoria = new Categoria(produto.categoria);
-
       this.produtoService.salvarProduto(produto, produto.id).subscribe(
         response => {
           this.toast.success(response.messages.SUCCESS[0]);
           this.redirecionaListagemProdutos();
         },
         error => {
-          this.toast.error(error);
+          this.toast.error(error.mensagem);
         }
       );
     }
@@ -98,14 +155,7 @@ export class FormularioProdutoComponent implements OnInit {
     this.router.navigate(['/admin/produto']);
   }
 
-  /**
-   * Verifica se a categoria é a categoria vinculada ao produto.
-   *
-   * @param categoria
-   * @return boolean
-   */
-  public isCategoriaProduto(categoria: Categoria): boolean {
-    console.log(categoria.id === this.produto.categoria.id)
-    return categoria.id === this.produto.categoria.id;
+  get itens(): FormArray {
+    return this.produtoForm.get('itens') as FormArray;
   }
 }

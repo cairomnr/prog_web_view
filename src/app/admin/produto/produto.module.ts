@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
+import { ToastrModule } from 'ngx-toastr';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ToastrModule } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrService, ToastrConfig } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,9 +16,9 @@ import { ProdutoService } from './produto.service';
 @NgModule({
   imports: [
     HttpModule,
-    FormsModule,
     CommonModule,
     RouterModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],

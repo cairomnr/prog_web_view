@@ -58,8 +58,7 @@ export class ProdutoService extends ServiceAbstract {
    * @param produto
    */
   public salvarProduto(produto: Produto, id: number): Observable<any> {
-    console.log(produto);
-    if (id === undefined) {
+    if (id === null) {
       return this.http.post(this.getUrl(), produto).map(this.extractData).catch(this.handleError);
     } else {
       return this.http.put(this.getUrl() + '/' + id, produto).map(this.extractData).catch(this.handleError);

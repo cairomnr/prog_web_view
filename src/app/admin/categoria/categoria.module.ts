@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -13,9 +13,9 @@ import { VisualizarCategoriaComponent } from './visualizar-categoria/visualizar-
 @NgModule({
   imports: [
     HttpModule,
-    FormsModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   declarations: [
     ListaCategoriasComponent,
