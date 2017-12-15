@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { DestaqueRotas } from './destaque/destaque-routing.module';
+import { ProdutosCarrinhoRotas } from './produtos-carrinho/produtos-carrinho-routing.module';
 import { CategoriaProdutosRotas } from './categoria-produtos/categoria-produtos-routing.module';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       ...DestaqueRotas,
+      ...ProdutosCarrinhoRotas,
       ...CategoriaProdutosRotas
     ]
   }

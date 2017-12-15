@@ -12,6 +12,9 @@ const routes: Routes = [
     path: 'acesso',
     component: AcessoComponent,
     children: [
+      {
+        path: '', redirectTo: 'login', pathMatch: 'full'
+      },
       ...LoginRotas
     ]
   }

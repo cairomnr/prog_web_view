@@ -7,8 +7,9 @@ import { ModalModule } from './core/modal/modal.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from '../app/home/home.module';
 import { AdminModule } from '../app/admin/admin.module';
+import { AcessoModule } from '../app/acesso/acesso.module';
 import { AdminRoutingModule } from './admin/admin-routing.module';
-import { ModalValidacaoComponent } from "./core/modal/modal-validacao/modal-validacao.component";
+import { ModalValidacaoComponent } from './core/modal/modal-validacao/modal-validacao.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { ModalValidacaoComponent } from "./core/modal/modal-validacao/modal-vali
     HomeModule,
     AdminModule,
     ModalModule,
+    AcessoModule,
     ToastrModule,
     BrowserModule,
     AdminRoutingModule,

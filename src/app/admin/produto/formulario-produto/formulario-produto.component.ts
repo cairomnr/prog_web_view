@@ -110,6 +110,11 @@ export class FormularioProdutoComponent implements OnInit {
     this.itens.removeAt(i);
   }
 
+  /**
+   * Remove uma categoria da lista.
+   *
+   * @param index
+   */
   public removerCategoriaLista(index): void {
     console.log(index);
     // this.categorias.splice(index, 1);
@@ -155,7 +160,21 @@ export class FormularioProdutoComponent implements OnInit {
     this.router.navigate(['/admin/produto']);
   }
 
+  /**
+   * Recupera os itens do formulário.
+   *
+   * @return FormArray
+   */
   get itens(): FormArray {
     return this.produtoForm.get('itens') as FormArray;
+  }
+
+  /**
+   * Metodo que compara se as categorias informadas são iguais.
+   *
+   * @return boolean
+   */
+  public compararCategoria(c1: Categoria, c2: Categoria): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 }
